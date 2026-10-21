@@ -1,0 +1,391 @@
+[
+  {
+    "slide": 1,
+    "file": "ppt/slides/slide1.xml",
+    "shapes": [
+      [
+        "Herramientas de",
+        "análisis y hacking",
+        "de redes"
+      ],
+      [
+        "Nmap, Wireshark y Bettercap"
+      ],
+      [
+        "Justin Siesquen · Milton Chupillon · Steven Ortiz · Manuel Gutarra",
+        "Ingeniería de Ciberseguridad · SENATI"
+      ]
+    ],
+    "tables": [],
+    "notes": "Buenos días, profesor y compañeros. Hoy nuestro equipo presentará tres herramientas de análisis y hacking de redes: Nmap, Wireshark y Bettercap. Veremos qué hace cada una, cómo se relaciona con los ataques y qué medidas permiten reducir los riesgos. Usaremos Kali Linux como entorno de auditoría. Las pruebas se plantean únicamente en un laboratorio autorizado.\nIntegrantes: Justin Siesquen, Milton Chupillon, Steven Ortiz y Manuel Gutarra.\nFuentes oficiales:"
+  },
+  {
+    "slide": 2,
+    "file": "ppt/slides/slide2.xml",
+    "shapes": [
+      [
+        "Tres herramientas, funciones diferentes"
+      ],
+      [
+        "El análisis y las pruebas autorizadas permiten evaluar la seguridad de una red."
+      ],
+      [
+        "02"
+      ],
+      [
+        "Kali Linux será el entorno de trabajo para la demostración."
+      ]
+    ],
+    "tables": [
+      [
+        [
+          "Herramienta",
+          "Función principal",
+          "Vector de auditoría"
+        ],
+        [
+          "Nmap",
+          "Reconocimiento",
+          "Mapeo de activos y puertos expuestos"
+        ],
+        [
+          "Wireshark",
+          "Análisis de paquetes",
+          "Inspección de cargas y cifrado"
+        ],
+        [
+          "Bettercap",
+          "Pruebas de interceptación",
+          "Evaluación de resistencia MITM"
+        ]
+      ]
+    ],
+    "notes": "El reconocimiento permite localizar equipos y servicios. El análisis de paquetes ayuda a comprender las comunicaciones y los fallos. Las pruebas de interceptación evalúan si alguien podría colocarse entre dos participantes. Las herramientas se complementan, pero tienen funciones diferentes. Nmap no demuestra por sí solo que un sistema sea vulnerable. Wireshark observa el tráfico disponible en su punto de captura. Bettercap permite realizar pruebas activas de suplantación. El alcance de una auditoría debe establecerse antes de comenzar.\nFuentes oficiales:\nhttps://nmap.org/book/man.html\nhttps://www.wireshark.org/docs/wsug_html_chunked/ChapterIntroduction.html\nhttps://www.bettercap.org/modules/ethernet/spoofers/arpspoof/"
+  },
+  {
+    "slide": 3,
+    "file": "ppt/slides/slide3.xml",
+    "shapes": [
+      [
+        "Nmap: descubrimiento de equipos"
+      ],
+      [
+        "Network Mapper es una herramienta de código abierto para explorar redes."
+      ],
+      [
+        "03"
+      ],
+      [
+        "Equipos y puertos"
+      ],
+      [
+        "Identifica hosts activos y puertos",
+        "abiertos, cerrados o filtrados."
+      ],
+      [
+        "Servicios y versiones"
+      ],
+      [
+        "Reconoce aplicaciones y puede",
+        "estimar el sistema operativo."
+      ],
+      [
+        "22"
+      ],
+      [
+        "SSH"
+      ],
+      [
+        "80"
+      ],
+      [
+        "HTTP"
+      ],
+      [
+        "Ejemplo ilustrativo de servicios expuestos"
+      ]
+    ],
+    "tables": [],
+    "notes": "Nmap envía sondas y analiza las respuestas. Puede descubrir equipos, examinar puertos y reconocer servicios. Un puerto abierto indica que una aplicación escucha conexiones. Un puerto filtrado significa que un filtro u otro obstáculo impide conocer su estado con certeza. En el ejemplo, 22 y 80 son los puertos habituales de SSH y HTTP, aunque un servicio puede usar un puerto distinto. Identificar una versión ayuda a priorizar revisiones, pero requiere corroboración. Nmap también dispone de scripts para comprobaciones específicas.\nFuentes oficiales:\nhttps://nmap.org/book/man.html"
+  },
+  {
+    "slide": 4,
+    "file": "ppt/slides/slide4.xml",
+    "shapes": [
+      [
+        "Nmap: reconocimiento y protección"
+      ],
+      [
+        "El escaneo recopila información que puede orientar un ataque posterior."
+      ],
+      [
+        "04"
+      ],
+      [
+        "Técnicas relacionadas"
+      ],
+      [
+        "Escaneo de puertos",
+        "Enumeración de servicios",
+        "Identificación de versiones"
+      ],
+      [
+        "Medidas de defensa"
+      ],
+      [
+        "Cerrar servicios innecesarios",
+        "Restringir accesos con firewall",
+        "Actualizar y supervisar servicios"
+      ],
+      [
+        "Un puerto abierto requiere revisión.",
+        "Por sí solo, no confirma una vulnerabilidad."
+      ]
+    ],
+    "tables": [],
+    "notes": "Nmap suele intervenir en la fase de reconocimiento. Por ejemplo, una persona puede descubrir un servicio remoto expuesto y después investigar si tiene fallos conocidos. El escaneo por sí solo no implica acceso al equipo ni explotación exitosa. Como defensores, podemos usar el mismo inventario para retirar servicios innecesarios y restringir quién puede acceder. Un firewall reduce la exposición cuando está correctamente configurado, pero no sustituye las actualizaciones. Los sistemas de detección pueden alertar sobre patrones de exploración. Conclusión: Nmap ayuda a conocer la superficie de ataque.\nFuentes oficiales:\nhttps://nmap.org/book/man.html"
+  },
+  {
+    "slide": 5,
+    "file": "ppt/slides/slide5.xml",
+    "shapes": [
+      [
+        "Wireshark: análisis de paquetes"
+      ],
+      [
+        "Examina el tráfico visible desde una interfaz o una captura guardada."
+      ],
+      [
+        "05"
+      ],
+      [
+        "Datos que muestra"
+      ],
+      [
+        "IP de origen y destino",
+        "Puertos y protocolos",
+        "Solicitudes y respuestas"
+      ],
+      [
+        "Usos principales"
+      ],
+      [
+        "Investigar comunicaciones",
+        "Detectar errores y retransmisiones",
+        "Estudiar incidentes de seguridad"
+      ],
+      [
+        "ARP    DNS    TCP    HTTP"
+      ],
+      [
+        "Los filtros permiten concentrarse en una comunicación concreta."
+      ]
+    ],
+    "tables": [],
+    "notes": "Wireshark presenta los detalles de cada paquete y permite filtrar por dirección, protocolo u otros campos. Se utiliza en diagnóstico, aprendizaje e investigación de incidentes. Puede abrir archivos de captura para revisarlos después. La visibilidad depende de la interfaz y del lugar desde el que capturamos. En una red conmutada no vemos automáticamente todo el tráfico entre otros equipos. Wireshark tampoco bloquea ataques ni actúa como un sistema automático de detección de intrusiones.\nFuentes oficiales:\nhttps://www.wireshark.org/docs/wsug_html_chunked/ChapterIntroduction.html"
+  },
+  {
+    "slide": 6,
+    "file": "ppt/slides/slide6.xml",
+    "shapes": [
+      [
+        "Wireshark: sniffing y confidencialidad"
+      ],
+      [
+        "La captura no autorizada puede exponer datos que viajan sin cifrar."
+      ],
+      [
+        "06"
+      ],
+      [
+        "HTTP"
+      ],
+      [
+        "Un observador del tráfico puede",
+        "leer contenido en texto claro."
+      ],
+      [
+        "HTTPS"
+      ],
+      [
+        "El cifrado y la validación correcta",
+        "del certificado protegen el contenido."
+      ],
+      [
+        "Uso defensivo"
+      ],
+      [
+        "Investigar escaneos, asociaciones ARP sospechosas",
+        "y comunicaciones anómalas."
+      ]
+    ],
+    "tables": [],
+    "notes": "Sniffing significa capturar y analizar tráfico. Puede ser una actividad legítima de diagnóstico o una captura maliciosa si se realiza sin autorización. Con HTTP, el contenido puede resultar legible para quien tenga visibilidad del flujo. HTTPS protege el contenido si el certificado se valida correctamente. Wireshark no descifra HTTPS de forma automática. La descodificación de protocolos tampoco equivale a romper un cifrado. Para reducir la exposición utilizamos HTTPS, SSH y controles de acceso. Conclusión: Wireshark permite observar y comprender evidencias de lo que ocurre en la red.\nFuentes oficiales:\nhttps://www.wireshark.org/docs/wsug_html_chunked/ChapterIntroduction.html\nhttps://www.wireshark.org/docs/wsug_html_chunked/ChAdvTLS.html"
+  },
+  {
+    "slide": 7,
+    "file": "ppt/slides/slide7.xml",
+    "shapes": [
+      [
+        "Bettercap: suplantación ARP"
+      ],
+      [
+        "Herramienta de auditoría con funciones de descubrimiento e interceptación."
+      ],
+      [
+        "07"
+      ],
+      [
+        "ARP"
+      ],
+      [
+        "Relaciona una dirección IPv4",
+        "con una dirección MAC en la red local."
+      ],
+      [
+        "ARP Spoofing"
+      ],
+      [
+        "Introduce asociaciones falsas",
+        "para desviar el tráfico."
+      ],
+      [
+        "La IP legítima puede quedar asociada",
+        "con la MAC del intermediario."
+      ]
+    ],
+    "tables": [],
+    "notes": "Bettercap agrupa módulos para auditar redes. La prueba elegida utiliza el módulo de suplantación ARP. ARP permite encontrar una dirección física a partir de una IPv4 dentro de la red local. Un atacante puede enviar respuestas falsas para que un equipo asocie una dirección legítima con la MAC del atacante. De ese modo, las tramas destinadas al participante real llegan primero al intermediario. Es una prueba local y requiere condiciones apropiadas de conectividad. Conclusión: Bettercap ayuda a comprobar si una red permite desviar comunicaciones mediante suplantación.\nFuentes oficiales:\nhttps://www.bettercap.org/modules/ethernet/spoofers/arpspoof/\nhttps://www.bettercap.org/modules/ethernet/netsniff/"
+  },
+  {
+    "slide": 8,
+    "file": "ppt/slides/slide8.xml",
+    "shapes": [
+      [
+        "Ataque de intermediario y defensas"
+      ],
+      [
+        "ARP Spoofing es una técnica que puede permitir una posición MITM."
+      ],
+      [
+        "08"
+      ],
+      [
+        "Riesgo"
+      ],
+      [
+        "El tráfico atraviesa al atacante.",
+        "Los datos sin cifrar pueden quedar",
+        "expuestos o sufrir alteraciones."
+      ],
+      [
+        "Protección"
+      ],
+      [
+        "Dynamic ARP Inspection valida ARP.",
+        "HTTPS protege el contenido.",
+        "La segmentación limita el alcance."
+      ],
+      [
+        "Interceptar paquetes no permite leer automáticamente",
+        "una comunicación HTTPS correctamente validada."
+      ]
+    ],
+    "tables": [],
+    "notes": "MITM significa Man-in-the-Middle o ataque de intermediario. Describe la posición del atacante, mientras que ARP Spoofing describe una técnica para alcanzarla. El impacto depende de la protección de la comunicación. HTTP puede exponer información o permitir modificaciones del contenido en tránsito. HTTPS correctamente validado protege el contenido, aunque no impide por sí solo el envenenamiento ARP. Dynamic ARP Inspection en switches compatibles valida asociaciones, habitualmente con la base de DHCP Snooping. Los equipos con IP estática necesitan asociaciones o ACL apropiadas. Las entradas ARP estáticas resultan útiles para la prueba pequeña que veremos.\nFuentes oficiales:\nhttps://www.bettercap.org/modules/ethernet/spoofers/arpspoof/\nhttps://www.cisco.com/c/en/us/support/docs/switches/catalyst-3750-series-switches/72846-layer2-secftrs-catl3fixed.html"
+  },
+  {
+    "slide": 9,
+    "file": "ppt/slides/slide9.xml",
+    "shapes": [
+      [
+        "Demostración en Kali Linux"
+      ],
+      [
+        "VMware Workstation con un segmento LAN aislado y datos ficticios."
+      ],
+      [
+        "09"
+      ],
+      [
+        "Antes: MAC legítima. Durante: asociación con la MAC de Kali."
+      ],
+      [
+        "Defensa: fijar las MAC correctas y repetir la prueba."
+      ]
+    ],
+    "tables": [
+      [
+        [
+          "Máquina",
+          "Función",
+          "IPv4 /24"
+        ],
+        [
+          "Kali Linux",
+          "Bettercap",
+          "192.168.77.10"
+        ],
+        [
+          "Rocky Linux cliente",
+          "Solicitar la página",
+          "192.168.77.20"
+        ],
+        [
+          "Rocky Linux servidor",
+          "Página HTTP de prueba",
+          "192.168.77.30"
+        ]
+      ]
+    ],
+    "notes": "La demostración utiliza tres máquinas virtuales propias y un segmento LAN aislado, sin adaptadores NAT o puente adicionales. Las direcciones indicadas son un ejemplo de configuración. Primero, el cliente solicita una página HTTP de prueba y registramos las MAC legítimas desde las consolas de los equipos. Después, activamos la suplantación limitada a cliente y servidor y generamos una solicitud con datos ficticios. Comparamos la tabla ARP y el tráfico observado. Detenemos la prueba, fijamos asociaciones ARP estáticas correctas en ambos extremos y repetimos el intento. La defensa debe mantener las MAC legítimas y permitir que la página funcione. Estos son resultados esperados, no resultados medidos. Una caída del servicio no demuestra por sí sola una interceptación exitosa. Las asociaciones estáticas protegen solo las entradas configuradas y requieren mantenimiento. Al terminar, detenemos Bettercap y restauramos la configuración temporal.\nFuentes oficiales:\nhttps://www.bettercap.org/modules/ethernet/spoofers/arpspoof/\nhttps://www.bettercap.org/usage/interactive_session/\nhttps://docs.python.org/3.12/library/http.server.html\nhttps://kernel.googlesource.com/pub/scm/network/iproute2/iproute2/+/refs/heads/main/man/man8/ip-neighbour.8"
+  },
+  {
+    "slide": 10,
+    "file": "ppt/slides/slide10.xml",
+    "shapes": [
+      [
+        "Conclusiones"
+      ],
+      [
+        "Una auditoría incluye la comprobación del riesgo y de la defensa."
+      ],
+      [
+        "10"
+      ],
+      [
+        "Nmap"
+      ],
+      [
+        "Permite revisar los equipos",
+        "y servicios expuestos."
+      ],
+      [
+        "Wireshark"
+      ],
+      [
+        "Permite analizar las comunicaciones",
+        "y las evidencias de un incidente."
+      ],
+      [
+        "Bettercap"
+      ],
+      [
+        "Permite evaluar la suplantación",
+        "y la interceptación en un laboratorio."
+      ],
+      [
+        "Protección de la red"
+      ],
+      [
+        "Combina controles de acceso,",
+        "cifrado y monitoreo."
+      ],
+      [
+        "Fuentes oficiales y explicación ampliada en las notas del expositor."
+      ]
+    ],
+    "tables": [],
+    "notes": "Para concluir, cada herramienta cumple una función específica. Nmap permite revisar la exposición de los servicios. Wireshark ayuda a comprender lo que sucede dentro de una comunicación. Bettercap permite comprobar riesgos de interceptación en un entorno autorizado. La demostración debe mostrar el antes, el durante y el después de aplicar la defensa, con evidencias reales. Una medida aislada no cubre todos los riesgos: las asociaciones ARP estáticas tienen alcance limitado, la inspección ARP protege las asociaciones y HTTPS protege el contenido. La finalidad del hacking ético es identificar debilidades y verificar mejoras.\nBibliografía complementaria:\nhttps://www.kali.org/tools/bettercap/\nhttps://www.wireshark.org/docs/\nhttps://www.bettercap.org/\nFuentes oficiales:\nhttps://nmap.org/book/man.html\nhttps://www.wireshark.org/docs/wsug_html_chunked/ChapterIntroduction.html\nhttps://www.bettercap.org/modules/ethernet/spoofers/arpspoof/\nhttps://www.cisco.com/c/en/us/support/docs/switches/catalyst-3750-series-switches/72846-layer2-secftrs-catl3fixed.html"
+  }
+]

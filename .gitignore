@@ -1,0 +1,15 @@
+# Entornos y editores
+.vscode/
+.idea/
+*.suo
+*.user
+
+# Archivos del sistema
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# Logs
+*.log

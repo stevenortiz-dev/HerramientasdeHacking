@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NetAudit · Herramientas de Análisis y Hacking de Redes | Nmap, Wireshark, Bettercap</title>
-    <meta name="description" content="Plataforma técnica de auditoría de redes: simulaciones de Nmap, Wireshark y Bettercap. Por Justin Siesquen, Milton Chupillon, Steven Ortiz y Manuel Gutarra · SENATI.">
+    <meta name="description" content="Plataforma técnica de auditoría de redes: simulaciones de Nmap, Wireshark y Bettercap. Por Justin Siesquen, Milton Chupillon, Steven Ortiz y Manuel Gutarra · INFOUNI.">
     
     <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/sf-pro-display">
     <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/sf-mono">
@@ -23,20 +23,6 @@
         <div class="video-intro-vignette"></div>
 
         <div class="video-intro-actions">
-            <button id="intro-sound-btn" class="intro-btn intro-btn-sound" type="button" title="Activar sonido" aria-label="Activar sonido">
-                <svg id="intro-sound-icon-mute" class="intro-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                    <line x1="23" y1="9" x2="17" y2="15"></line>
-                    <line x1="17" y1="9" x2="23" y2="15"></line>
-                </svg>
-                <svg id="intro-sound-icon-unmute" class="intro-icon" style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-                </svg>
-                <span id="intro-sound-text">SONIDO</span>
-            </button>
-
             <button id="skip-intro" class="skip-intro" type="button" title="Saltar intro y acceder al sitio" aria-label="Saltar intro">
                 <span>SALTAR INTRO</span>
                 <svg class="intro-icon-skip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -54,7 +40,7 @@
         <section id="inicio" class="hero-block">
             <div class="hero-meta-pill">
                 <span class="hero-meta-dot"></span>
-                <span>AUDITORÍA Y SEGURIDAD EN REDES · SENATI 2026</span>
+                <span>AUDITORÍA Y SEGURIDAD EN REDES · INFOUNI 2026</span>
             </div>
 
             <h1 class="hero-main-title">
@@ -75,7 +61,7 @@
                         <div class="author-badge-icon">👥</div>
                         <div>
                             <div class="author-title">Equipo de Ciberseguridad</div>
-                            <div class="author-sub">Ingeniería de Ciberseguridad · SENATI 2026</div>
+                            <div class="author-sub">Ingeniería de Ciberseguridad · INFOUNI 2026</div>
                         </div>
                     </div>
                     <div class="author-tags-flex">
@@ -630,16 +616,19 @@
                             <span class="window-dot yellow"></span>
                             <span class="window-dot green"></span>
                         </div>
-                        <span class="window-label-text">kali@auditor:~/lab# ./demo-nmap.mp4</span>
-                        <span class="tag-badge" style="background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.35); color: #f87171; display: inline-flex; align-items: center; gap: 5px;">
+                        <span class="window-label-text" id="nmap-window-label">kali@auditor:~/lab# ./demo-nmap.mp4</span>
+                        <span class="tag-badge" id="nmap-badge-status" style="background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.35); color: #f87171; display: inline-flex; align-items: center; gap: 5px;">
                             <span class="rec-pulsing-dot"></span> LIVE DEMO
                         </span>
-                        <span class="tag-badge" style="background: rgba(59,130,246,0.1); border-color: rgba(59,130,246,0.3); color: #60a5fa;">
+                        <span class="tag-badge" id="nmap-badge-res" style="background: rgba(59,130,246,0.1); border-color: rgba(59,130,246,0.3); color: #60a5fa;">
                             1080p FHD
                         </span>
                     </div>
 
-                    <div class="player-top-actions">
+                    <div class="player-top-actions" style="display: flex; align-items: center; gap: 8px;">
+                        <button id="btn-toggle-video-mode" class="btn-tool-action btn-mode-toggle" style="padding: 0.32rem 0.75rem; font-size: 0.76rem; border-color: rgba(245,158,11,0.4); color: #fbbf24;" title="Alternar entre Demo Nmap y Gran Final">
+                            🔥 Ver Gran Final
+                        </button>
                         <button id="btn-open-cinema-top" class="btn-tool-action" style="padding: 0.32rem 0.75rem; font-size: 0.76rem;" title="Abrir en Modo Cine">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -1px; margin-right: 3px;"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
                             Modo Cine
@@ -663,6 +652,103 @@
                             <polygon points="6 3 20 12 6 21 6 3"></polygon>
                         </svg>
                     </button>
+
+                    <!-- Grand Finale Transition HUD Overlay -->
+                    <div id="finale-transition-overlay" class="finale-transition-overlay" style="display: none;">
+                        <!-- Cyber HUD corner accents -->
+                        <div class="finale-hud-corner corner-tl"></div>
+                        <div class="finale-hud-corner corner-tr"></div>
+                        <div class="finale-hud-corner corner-bl"></div>
+                        <div class="finale-hud-corner corner-br"></div>
+                        <div class="finale-hud-grid-bg"></div>
+
+                        <div class="finale-cinematic-wrap">
+                            <!-- Top cyber status chip -->
+                            <div class="finale-cinematic-badge">
+                                <span class="rec-pulsing-dot" style="background:#10b981;box-shadow:0 0 10px #10b981;"></span>
+                                <span class="font-mono text-emerald">FASE 1 COMPLETADA</span>
+                                <span class="finale-badge-separator">·</span>
+                                <span class="font-mono text-cyan">DEMO NMAP FINALIZADA</span>
+                            </div>
+
+                            <!-- Main cinematic quote card -->
+                            <div class="finale-closing-box">
+                                <div class="finale-quote-symbol">“</div>
+                                <h2 class="finale-closing-phrase">
+                                    Y con esto cerramos<span class="finale-closing-ellipsis">...</span>
+                                </h2>
+                                <p class="finale-cinematic-sub">
+                                    Conclusiones del laboratorio táctico y cierre del entorno de auditoría ética.
+                                </p>
+                            </div>
+
+                            <!-- Team credits row -->
+                            <div class="finale-team-chip-row">
+                                <span class="finale-chip-pill"><span class="chip-dot"></span>Justin Siesquen</span>
+                                <span class="finale-chip-pill"><span class="chip-dot"></span>Milton Chupillon</span>
+                                <span class="finale-chip-pill"><span class="chip-dot"></span>Steven Ortiz</span>
+                                <span class="finale-chip-pill"><span class="chip-dot"></span>Manuel Gutarra</span>
+                            </div>
+
+                            <!-- Golden divider -->
+                            <div class="finale-cinematic-divider"></div>
+
+                            <!-- High-tech Progress bar & Countdown -->
+                            <div class="finale-cinematic-loader-wrap">
+                                <div class="finale-loader-meta">
+                                    <span class="finale-loader-label font-mono">
+                                        <span class="finale-pulse-beacon"></span>
+                                        SIGUIENTE: <strong>GRAN FINAL &amp; CONCLUSIONES</strong>
+                                    </span>
+                                    <span id="finale-countdown-num" class="finale-countdown-num font-mono">6s</span>
+                                </div>
+                                <div class="finale-loader-line">
+                                    <div id="finale-loader-bar" class="finale-loader-bar"></div>
+                                </div>
+                            </div>
+
+                            <!-- Action buttons -->
+                            <div class="finale-hud-actions">
+                                <button id="btn-skip-to-finale" type="button" class="finale-action-btn primary" title="Reproducir el video final ahora">
+                                    <span>Ver Gran Final ahora</span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="icon-inline">
+                                        <polygon points="5 4 15 12 5 20 5 4"></polygon>
+                                        <line x1="19" y1="5" x2="19" y2="19"></line>
+                                    </svg>
+                                </button>
+                                <button id="btn-cancel-transition" type="button" class="finale-action-btn secondary" title="Permanecer en la demo de Nmap">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-inline">
+                                        <polyline points="1 4 1 10 7 10"></polyline>
+                                        <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                                    </svg>
+                                    <span>Repetir Demo Nmap</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grand Finale Outro Overlay -->
+                    <div id="finale-outro-overlay" class="finale-outro-overlay" style="display: none;">
+                        <div class="finale-outro-card">
+                            <div class="finale-trophy-icon">🏆</div>
+                            <h3 class="finale-outro-title">¡Gran Final del Laboratorio Concluido!</h3>
+                            <p class="finale-outro-desc">Auditoría ética de Nmap, Wireshark y Bettercap presentada con éxito.</p>
+                            <div class="finale-team-pills">
+                                <span>Justin Siesquen</span>
+                                <span>Milton Chupillon</span>
+                                <span>Steven Ortiz</span>
+                                <span>Manuel Gutarra</span>
+                            </div>
+                            <div class="finale-actions-row">
+                                <button id="btn-replay-finale" class="btn-solid-blue" type="button" style="padding: 0.5rem 1.2rem; font-size: 0.82rem;">
+                                    🔄 Repetir Gran Final
+                                </button>
+                                <button id="btn-return-nmap-demo" class="btn-outline-subtle" type="button" style="padding: 0.5rem 1.2rem; font-size: 0.82rem;">
+                                    ⏮ Ver Demo Nmap
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Custom Cyber Video Controls -->
                     <div class="nmap-video-controls" id="nmap-video-controls">
@@ -726,7 +812,7 @@
                 </div>
 
                 <!-- Quick Chapter Markers Bar -->
-                <div class="demo-chapters-bar">
+                <div id="demo-chapters-bar" class="demo-chapters-bar">
                     <span class="demo-chapters-label font-mono">Hitos Técnicos:</span>
                     <div class="demo-chapters-list">
                         <button class="chapter-pill-btn active" data-time="0">
@@ -743,6 +829,9 @@
                         </button>
                         <button class="chapter-pill-btn" data-time="100">
                             <span class="font-mono text-cyan">01:40</span> Conclusiones Tácticas
+                        </button>
+                        <button class="chapter-pill-btn finale-pill-btn" id="chapter-finale-pill" type="button" title="Reproducir Gran Final">
+                            <span class="font-mono" style="color: #f59e0b;">🔥 FIN</span> Gran Final
                         </button>
                     </div>
                 </div>
@@ -791,7 +880,7 @@
             <div class="sheet-header-bar">
                 <div style="display: flex; align-items: center; gap: 0.6rem;">
                     <span class="tag-badge" style="color: var(--blue);">GUION DE EXPOSICIÓN</span>
-                    <span style="font-size: 0.88rem; font-weight: 700; color: var(--text-primary);">Equipo de Ciberseguridad · SENATI</span>
+                    <span style="font-size: 0.88rem; font-weight: 700; color: var(--text-primary);">Equipo de Ciberseguridad · INFOUNI</span>
                 </div>
                 <button id="close-notes-modal-btn" class="btn-close-sheet" title="Cerrar modal">✕</button>
             </div>
@@ -835,14 +924,14 @@
                 <div style="color: #f43f5e; margin-bottom: 1.2rem;">
                     <span style="color: #fda4af; font-weight: 700;">[192.168.1.45:49821 -> 192.168.1.100:80] CLIENTE (PETICIÓN EN TEXTO PLANO):</span><br>
 POST /portal/login.php HTTP/1.1<br>
-Host: portal.senati.edu.pe<br>
+Host: portal.infouni.edu.pe<br>
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36<br>
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8<br>
 Content-Type: application/x-www-form-urlencoded<br>
 Content-Length: 61<br>
 Connection: keep-alive<br>
 <br>
-<strong>user=estudiante_auditor&pass=SenatiClaveSegura2026!&submit=Login</strong>
+<strong>user=estudiante_auditor&pass=InfoUniClaveSegura2026!&submit=Login</strong>
                 </div>
 
                 <div style="color: #38bdf8;">
@@ -874,14 +963,17 @@ Content-Length: 284<br>
             <div class="sheet-header-bar cinema-header-bar">
                 <div style="display: flex; align-items: center; gap: 0.8rem;">
                     <span class="tag-badge" style="background: rgba(59,130,246,0.15); color: #60a5fa; border-color: rgba(59,130,246,0.3);">MODO CINE</span>
-                    <span style="font-size: 0.92rem; font-weight: 700; color: #fff; font-family: var(--font-mono);">
+                    <span id="cinema-title-label" style="font-size: 0.92rem; font-weight: 700; color: #fff; font-family: var(--font-mono);">
                         Demostración en Vivo: Nmap en Kali Linux
                     </span>
-                    <span class="tag-badge" style="background: rgba(239,68,68,0.15); color: #f87171; border-color: rgba(239,68,68,0.3);">
+                    <span id="cinema-badge-status" class="tag-badge" style="background: rgba(239,68,68,0.15); color: #f87171; border-color: rgba(239,68,68,0.3);">
                         <span class="rec-pulsing-dot"></span> LIVE REC
                     </span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 0.8rem;">
+                    <button id="cinema-toggle-mode-btn" class="btn-tool-action btn-mode-toggle" style="padding: 0.32rem 0.75rem; font-size: 0.76rem; border-color: rgba(245,158,11,0.4); color: #fbbf24;" title="Alternar entre Demo Nmap y Gran Final">
+                        🔥 Ver Gran Final
+                    </button>
                     <span class="font-mono text-muted" style="font-size: 0.75rem;">Atajos: [Espacio] Pausa · [F] Pantalla Completa · [Esc] Salir</span>
                     <button id="close-cinema-modal-btn" class="btn-close-sheet" title="Cerrar Modo Cine (Esc)">✕</button>
                 </div>
@@ -891,7 +983,7 @@ Content-Length: 284<br>
             </div>
             <div class="cinema-footer-bar">
                 <div class="font-mono" style="font-size: 0.8rem; color: var(--text-secondary);">
-                    🎯 <strong>Laboratorio SENATI 2026:</strong> Justin Siesquen · Milton Chupillon · Steven Ortiz · Manuel Gutarra
+                    🎯 <strong>Laboratorio INFOUNI 2026:</strong> Justin Siesquen · Milton Chupillon · Steven Ortiz · Manuel Gutarra
                 </div>
                 <button id="close-cinema-bottom-btn" class="btn-tool-action" style="padding: 0.35rem 0.85rem; font-size: 0.75rem;">
                     Salir de Modo Cine [Esc]

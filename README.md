@@ -4,7 +4,7 @@
 
 ---
 
-## 👥 Equipo de Ciberseguridad · SENATI 2026
+## 👥 Equipo de Ciberseguridad · INFOUNI 2026
 * **Steven Ortiz**
 * **Justin Siesquen**
 * **Milton Chupillon**

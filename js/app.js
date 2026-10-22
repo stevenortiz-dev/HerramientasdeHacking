@@ -8,10 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById('video-intro-container');
         const video = document.getElementById('intro-video');
         const skipBtn = document.getElementById('skip-intro');
-        const soundBtn = document.getElementById('intro-sound-btn');
-        const soundText = document.getElementById('intro-sound-text');
-        const soundIconMute = document.getElementById('intro-sound-icon-mute');
-        const soundIconUnmute = document.getElementById('intro-sound-icon-unmute');
 
         if (!container || !video) {
             document.body.classList.remove('intro-active');
@@ -47,24 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Toggle sound
-        if (soundBtn) {
-            soundBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if (video.muted) {
-                    video.muted = false;
-                    if (soundIconMute) soundIconMute.style.display = 'none';
-                    if (soundIconUnmute) soundIconUnmute.style.display = 'block';
-                    if (soundText) soundText.textContent = 'MUTEAR';
-                } else {
-                    video.muted = true;
-                    if (soundIconMute) soundIconMute.style.display = 'block';
-                    if (soundIconUnmute) soundIconUnmute.style.display = 'none';
-                    if (soundText) soundText.textContent = 'SONIDO';
-                }
-            });
-        }
-
         // Skip button
         if (skipBtn) {
             skipBtn.addEventListener('click', (e) => {
@@ -73,14 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Click anywhere on video to toggle sound
-        container.addEventListener('click', (e) => {
-            if (video.muted) {
-                video.muted = false;
-                if (soundIconMute) soundIconMute.style.display = 'none';
-                if (soundIconUnmute) soundIconUnmute.style.display = 'block';
-                if (soundText) soundText.textContent = 'MUTEAR';
-            }
+        // Click anywhere on container to skip intro
+        container.addEventListener('click', () => {
+            finalizeIntro();
         });
 
         // When video finishes, finalize intro
@@ -759,7 +732,7 @@ document.addEventListener('DOMContentLoaded', () => {
             src: '192.168.1.45',
             dst: '192.168.1.1',
             len: 74,
-            info: 'Standard query 0x2b1a A aula.senati.edu.pe',
+            info: 'Standard query 0x2b1a A aula.infouni.edu.pe',
             details: `
                 <div class="tree-item">▶ Frame 4: 74 bytes on wire</div>
                 <div class="tree-item">▶ Ethernet II, Src: AA:BB:CC:11:22:33, Dst: 00:50:56:00:01:01</div>
@@ -770,7 +743,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     Transaction ID: 0x2b1a<br>
                     Flags: 0x0100 Standard query<br>
                     Questions: 1<br>
-                    Query: aula.senati.edu.pe: type A, class IN
+                    Query: aula.infouni.edu.pe: type A, class IN
                 </div>
             `,
             hex: `
@@ -1030,13 +1003,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const events = [
                 {
-                    req: `[net.sniff] [TRANSMISIÓN] 192.168.1.45:51940 solicita resolución DNS para "portal.senati.edu.pe"`,
+                    req: `[net.sniff] [TRANSMISIÓN] 192.168.1.45:51940 solicita resolución DNS para "portal.infouni.edu.pe"`,
                     resp: `[net.sniff] [DNS] Consulta capturada en Kali -&gt; Respuesta remitida: 104.18.22.41`,
                     color: '#7dd3fc'
                 },
                 {
                     req: `[net.sniff] [TRANSMISIÓN] 192.168.1.45 envía solicitud HTTP POST hacia http://portal.lab/login.php`,
-                    resp: `[net.sniff] [HTTP-CREDENTIALS] ¡CREDENCIALES CAPTURADAS EN TEXTO CLARO!<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── usuario: <strong style="color:#fff;">estudiante_auditor</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── password: <strong style="color: #ff4d6d;">SenatiClaveSegura2026!</strong>`,
+                    resp: `[net.sniff] [HTTP-CREDENTIALS] ¡CREDENCIALES CAPTURADAS EN TEXTO CLARO!<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── usuario: <strong style="color:#fff;">estudiante_auditor</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── password: <strong style="color: #ff4d6d;">InfoUniClaveSegura2026!</strong>`,
                     color: '#ff6b6b'
                 },
                 {
@@ -1058,11 +1031,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (bcDnsSpoofBtn) {
         bcDnsSpoofBtn.addEventListener('click', () => {
             const dnsLogs = [
-                { t: `<span class="bettercap-prompt" style="color: #c084fc; font-weight:700;">bettercap &gt;&gt;</span> set dns.spoof.domains portal.senati.edu.pe, intranet.lab`, c: '#ffffff', d: 50 },
+                { t: `<span class="bettercap-prompt" style="color: #c084fc; font-weight:700;">bettercap &gt;&gt;</span> set dns.spoof.domains portal.infouni.edu.pe, intranet.lab`, c: '#ffffff', d: 50 },
                 { t: `<span class="bettercap-prompt" style="color: #c084fc; font-weight:700;">bettercap &gt;&gt;</span> set dns.spoof.address 192.168.1.10`, c: '#ffffff', d: 250 },
                 { t: `<span class="bettercap-prompt" style="color: #c084fc; font-weight:700;">bettercap &gt;&gt;</span> dns.spoof on`, c: '#ffffff', d: 450 },
                 { t: `[dns.spoof] [ACTIVO] Respuestas falsificadas configuradas hacia 192.168.1.10 (Kali)`, c: '#c084fc', d: 700 },
-                { t: `[net.sniff] [DNS-ENGAÑO] Víctima solicita "portal.senati.edu.pe" -&gt; INYECCIÓN FALSA: 192.168.1.10 (Servidor Phishing de Demostración)`, c: '#f43f5e', d: 950 }
+                { t: `[net.sniff] [DNS-ENGAÑO] Víctima solicita "portal.infouni.edu.pe" -&gt; INYECCIÓN FALSA: 192.168.1.10 (Servidor Phishing de Demostración)`, c: '#f43f5e', d: 950 }
             ];
 
             dnsLogs.forEach(item => {
@@ -1373,8 +1346,27 @@ Agradecemos su atención y quedamos a disposición para responder sus preguntas.
     const closeCinemaModalBtn = document.getElementById('close-cinema-modal-btn');
     const closeCinemaBottomBtn = document.getElementById('close-cinema-bottom-btn');
 
-    const chapterPillBtns = document.querySelectorAll('.chapter-pill-btn');
+    const chapterPillBtns = document.querySelectorAll('.chapter-pill-btn:not(.finale-pill-btn)');
     const nmapGotoDemoBtn = document.getElementById('nmap-goto-demo-btn');
+
+    // Grand Finale elements
+    const finaleTransitionOverlay = document.getElementById('finale-transition-overlay');
+    const finaleOutroOverlay = document.getElementById('finale-outro-overlay');
+    const btnToggleVideoMode = document.getElementById('btn-toggle-video-mode');
+    const cinemaModeToggleBtn = document.getElementById('cinema-toggle-mode-btn');
+    const chapterFinalePill = document.getElementById('chapter-finale-pill');
+    const btnReplayFinale = document.getElementById('btn-replay-finale');
+    const btnReturnNmapDemo = document.getElementById('btn-return-nmap-demo');
+    const btnSkipToFinale = document.getElementById('btn-skip-to-finale');
+    const btnCancelTransition = document.getElementById('btn-cancel-transition');
+    const finaleCountdownNum = document.getElementById('finale-countdown-num');
+    const finaleLoaderBar = document.getElementById('finale-loader-bar');
+    const nmapWindowLabel = document.getElementById('nmap-window-label');
+    const nmapBadgeStatus = document.getElementById('nmap-badge-status');
+    const nmapBadgeRes = document.getElementById('nmap-badge-res');
+    const cinemaTitleLabel = document.getElementById('cinema-title-label');
+    const cinemaBadgeStatus = document.getElementById('cinema-badge-status');
+    const demoChaptersBar = document.getElementById('demo-chapters-bar') || document.querySelector('.demo-chapters-bar');
 
     if (nmapDemoVideo && nmapVideoViewport) {
         let isCinemaActive = false;
@@ -1382,6 +1374,179 @@ Agradecemos su atención y quedamos a disposición para responder sus preguntas.
         let idleTimer = null;
         const PLAYBACK_SPEEDS = [1.0, 1.25, 1.5, 2.0, 0.75];
         let currentSpeedIndex = 0;
+
+        // ---- Grand Finale State ----
+        const FINALE_VIDEO_SRCS = ['assets/video-pepem.mp4', 'video pepem.mp4'];
+        let isFinaleMode = false;   // true when showing "video pepem"
+        let finaleTriggeredOnce = false;
+
+        function setFinaleMode(enable) {
+            isFinaleMode = enable;
+
+            // Update video source
+            nmapDemoVideo.pause();
+            nmapDemoVideo.currentTime = 0;
+            if (ctrlDurationTime) ctrlDurationTime.textContent = '--:--';
+            if (ctrlCurrentTime) ctrlCurrentTime.textContent = '00:00';
+            if (scrubberProgressBar) scrubberProgressBar.style.width = '0%';
+            if (scrubberHandle) scrubberHandle.style.left = '0%';
+
+            if (enable) {
+                // Switch to finale video
+                nmapDemoVideo.innerHTML = '';
+                FINALE_VIDEO_SRCS.forEach(s => {
+                    const src = document.createElement('source');
+                    src.src = s;
+                    src.type = 'video/mp4';
+                    nmapDemoVideo.appendChild(src);
+                });
+                nmapDemoVideo.load();
+
+                // Update titlebar UI
+                if (nmapWindowLabel) nmapWindowLabel.textContent = '🔥 gran-final.mp4 · Video Pepem';
+                if (nmapBadgeStatus) {
+                    nmapBadgeStatus.innerHTML = '<span class="rec-pulsing-dot" style="background:#f59e0b;box-shadow:0 0 8px #f59e0b"></span> GRAN FINAL';
+                    nmapBadgeStatus.style.background = 'rgba(245,158,11,0.15)';
+                    nmapBadgeStatus.style.borderColor = 'rgba(245,158,11,0.4)';
+                    nmapBadgeStatus.style.color = '#fbbf24';
+                }
+                if (nmapBadgeRes) nmapBadgeRes.textContent = '🏆 EPILOGO';
+                if (cinemaTitleLabel) cinemaTitleLabel.textContent = '🔥 Gran Final del Laboratorio · Video Pepem';
+                if (cinemaBadgeStatus) {
+                    cinemaBadgeStatus.innerHTML = '<span class="rec-pulsing-dot" style="background:#f59e0b;box-shadow:0 0 8px #f59e0b"></span> GRAN FINAL';
+                    cinemaBadgeStatus.style.background = 'rgba(245,158,11,0.15)';
+                    cinemaBadgeStatus.style.borderColor = 'rgba(245,158,11,0.4)';
+                    cinemaBadgeStatus.style.color = '#fbbf24';
+                }
+                if (chapterFinalePill) chapterFinalePill.classList.add('active');
+
+                // Toggle buttons
+                const toggleLabel = '⏮ Ver Demo Nmap';
+                if (btnToggleVideoMode) { btnToggleVideoMode.textContent = toggleLabel; btnToggleVideoMode.title = 'Volver a Demo Nmap'; }
+                if (cinemaModeToggleBtn) { cinemaModeToggleBtn.textContent = toggleLabel; cinemaModeToggleBtn.title = 'Volver a Demo Nmap'; }
+
+                // Hide chapters bar for the final video
+                if (demoChaptersBar) demoChaptersBar.classList.add('is-hidden');
+
+                // Hide outro if visible
+                if (finaleOutroOverlay) finaleOutroOverlay.style.display = 'none';
+
+                nmapDemoVideo.play().catch(() => {});
+            } else {
+                // Restore chapters bar for Nmap demo
+                if (demoChaptersBar) demoChaptersBar.classList.remove('is-hidden');
+
+                // Switch back to Nmap demo
+                nmapDemoVideo.innerHTML = '';
+                const s1 = document.createElement('source');
+                s1.src = 'assets/demo-nmap.mp4'; s1.type = 'video/mp4';
+                const s2 = document.createElement('source');
+                s2.src = 'DEMO NMAP.mp4'; s2.type = 'video/mp4';
+                nmapDemoVideo.appendChild(s1);
+                nmapDemoVideo.appendChild(s2);
+                nmapDemoVideo.load();
+
+                // Restore titlebar
+                if (nmapWindowLabel) nmapWindowLabel.textContent = 'kali@auditor:~/lab# ./demo-nmap.mp4';
+                if (nmapBadgeStatus) {
+                    nmapBadgeStatus.innerHTML = '<span class="rec-pulsing-dot"></span> LIVE DEMO';
+                    nmapBadgeStatus.style.background = 'rgba(239,68,68,0.15)';
+                    nmapBadgeStatus.style.borderColor = 'rgba(239,68,68,0.35)';
+                    nmapBadgeStatus.style.color = '#f87171';
+                }
+                if (nmapBadgeRes) nmapBadgeRes.textContent = '1080p FHD';
+                if (cinemaTitleLabel) cinemaTitleLabel.textContent = 'Demostración en Vivo: Nmap en Kali Linux';
+                if (cinemaBadgeStatus) {
+                    cinemaBadgeStatus.innerHTML = '<span class="rec-pulsing-dot"></span> LIVE REC';
+                    cinemaBadgeStatus.style.background = '';
+                    cinemaBadgeStatus.style.borderColor = '';
+                    cinemaBadgeStatus.style.color = '';
+                }
+                if (chapterFinalePill) chapterFinalePill.classList.remove('active');
+
+                const toggleLabel = '🔥 Ver Gran Final';
+                if (btnToggleVideoMode) { btnToggleVideoMode.textContent = toggleLabel; btnToggleVideoMode.title = 'Alternar entre Demo Nmap y Gran Final'; }
+                if (cinemaModeToggleBtn) { cinemaModeToggleBtn.textContent = toggleLabel; cinemaModeToggleBtn.title = 'Alternar entre Demo Nmap y Gran Final'; }
+
+                // Hide overlays
+                cancelFinaleTransition();
+                if (finaleOutroOverlay) finaleOutroOverlay.style.display = 'none';
+            }
+        }
+
+        let finaleTransitionTimer = null;
+        let finaleCountdownInterval = null;
+
+        function cancelFinaleTransition() {
+            if (finaleTransitionTimer) {
+                clearTimeout(finaleTransitionTimer);
+                finaleTransitionTimer = null;
+            }
+            if (finaleCountdownInterval) {
+                clearInterval(finaleCountdownInterval);
+                finaleCountdownInterval = null;
+            }
+            if (finaleTransitionOverlay) {
+                finaleTransitionOverlay.style.display = 'none';
+            }
+            if (finaleLoaderBar) {
+                finaleLoaderBar.style.transition = 'none';
+                finaleLoaderBar.style.width = '0%';
+            }
+            if (!isFinaleMode && demoChaptersBar) {
+                demoChaptersBar.classList.remove('is-hidden');
+            }
+        }
+
+        function triggerFinaleSequence() {
+            // Cancel any prior transition
+            cancelFinaleTransition();
+
+            // Once Nmap demo finishes, immediately hide the chapters bar
+            if (demoChaptersBar) demoChaptersBar.classList.add('is-hidden');
+
+            if (!finaleTransitionOverlay) {
+                setFinaleMode(true);
+                return;
+            }
+
+            // Display HUD overlay
+            finaleTransitionOverlay.style.display = 'flex';
+
+            const TOTAL_DURATION_SEC = 6; // 6 seconds duration for full readability and cinematic impact
+            let remainingSec = TOTAL_DURATION_SEC;
+
+            if (finaleCountdownNum) {
+                finaleCountdownNum.textContent = `${remainingSec}s`;
+            }
+
+            // Animate progress bar smoothly over the 6 seconds
+            if (finaleLoaderBar) {
+                finaleLoaderBar.style.transition = 'none';
+                finaleLoaderBar.style.width = '0%';
+                void finaleLoaderBar.offsetWidth; // force browser layout recalculation
+                finaleLoaderBar.style.transition = `width ${TOTAL_DURATION_SEC}s linear`;
+                finaleLoaderBar.style.width = '100%';
+            }
+
+            // Countdown ticker updating every second
+            finaleCountdownInterval = setInterval(() => {
+                remainingSec -= 1;
+                if (remainingSec >= 0 && finaleCountdownNum) {
+                    finaleCountdownNum.textContent = `${remainingSec}s`;
+                }
+                if (remainingSec <= 0) {
+                    clearInterval(finaleCountdownInterval);
+                    finaleCountdownInterval = null;
+                }
+            }, 1000);
+
+            // Once 6s elapsed, transition smoothly to the Grand Finale video
+            finaleTransitionTimer = setTimeout(() => {
+                cancelFinaleTransition();
+                setFinaleMode(true);
+            }, TOTAL_DURATION_SEC * 1000);
+        }
 
         function formatVideoTime(seconds) {
             if (isNaN(seconds) || !isFinite(seconds)) return '00:00';
@@ -1516,7 +1681,17 @@ Agradecemos su atención y quedamos a disposición para responder sus preguntas.
         // Event Listeners
         nmapDemoVideo.addEventListener('play', () => syncPlayState(true));
         nmapDemoVideo.addEventListener('pause', () => syncPlayState(false));
-        nmapDemoVideo.addEventListener('ended', () => syncPlayState(false));
+        nmapDemoVideo.addEventListener('ended', () => {
+            syncPlayState(false);
+            if (!isFinaleMode && !finaleTriggeredOnce) {
+                // Nmap demo just finished → auto-trigger Gran Final
+                finaleTriggeredOnce = true;
+                triggerFinaleSequence();
+            } else if (isFinaleMode) {
+                // Gran Final video finished → show Outro overlay
+                if (finaleOutroOverlay) finaleOutroOverlay.style.display = 'flex';
+            }
+        });
         nmapDemoVideo.addEventListener('timeupdate', updateProgress);
         nmapDemoVideo.addEventListener('progress', updateBuffer);
         nmapDemoVideo.addEventListener('loadedmetadata', () => {
@@ -1535,6 +1710,7 @@ Agradecemos su atención y quedamos a disposición para responder sus preguntas.
 
         nmapVideoViewport.addEventListener('click', (e) => {
             if (e.target.closest('#nmap-video-controls') || e.target.closest('#nmap-big-play-btn')) return;
+            if (e.target.closest('#finale-transition-overlay') || e.target.closest('#finale-outro-overlay')) return;
             togglePlay();
         });
 
@@ -1646,15 +1822,95 @@ Agradecemos su atención y quedamos a disposición para responder sus preguntas.
         document.addEventListener('fullscreenchange', syncFullscreenIcons);
         document.addEventListener('webkitfullscreenchange', syncFullscreenIcons);
 
-        // Chapter pills
+        // Chapter pills (nmap chapters)
         chapterPillBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                const targetSec = parseFloat(btn.dataset.time || '0');
-                nmapDemoVideo.currentTime = targetSec;
-                nmapDemoVideo.play().catch(() => {});
+                if (isFinaleMode) {
+                    // Return to nmap demo first
+                    setFinaleMode(false);
+                    finaleTriggeredOnce = false;
+                    setTimeout(() => {
+                        const targetSec = parseFloat(btn.dataset.time || '0');
+                        nmapDemoVideo.currentTime = targetSec;
+                        nmapDemoVideo.play().catch(() => {});
+                    }, 150);
+                } else {
+                    const targetSec = parseFloat(btn.dataset.time || '0');
+                    nmapDemoVideo.currentTime = targetSec;
+                    nmapDemoVideo.play().catch(() => {});
+                }
             });
         });
+
+        // Grand Finale chapter pill
+        if (chapterFinalePill) {
+            chapterFinalePill.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (!isFinaleMode) {
+                    triggerFinaleSequence();
+                } else {
+                    // Already in finale mode, replay from start
+                    if (finaleOutroOverlay) finaleOutroOverlay.style.display = 'none';
+                    nmapDemoVideo.currentTime = 0;
+                    nmapDemoVideo.play().catch(() => {});
+                }
+            });
+        }
+
+        // Toggle video mode buttons (both in titlebar and cinema header)
+        [btnToggleVideoMode, cinemaModeToggleBtn].forEach(btn => {
+            if (!btn) return;
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (!isFinaleMode) {
+                    triggerFinaleSequence();
+                } else {
+                    setFinaleMode(false);
+                    finaleTriggeredOnce = false;
+                }
+            });
+        });
+
+        // Outro overlay action buttons
+        if (btnReplayFinale) {
+            btnReplayFinale.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (finaleOutroOverlay) finaleOutroOverlay.style.display = 'none';
+                nmapDemoVideo.currentTime = 0;
+                nmapDemoVideo.play().catch(() => {});
+            });
+        }
+        if (btnReturnNmapDemo) {
+            btnReturnNmapDemo.addEventListener('click', (e) => {
+                e.stopPropagation();
+                cancelFinaleTransition();
+                setFinaleMode(false);
+                finaleTriggeredOnce = false;
+                if (demoChaptersBar) demoChaptersBar.classList.remove('is-hidden');
+            });
+        }
+
+        // Transition HUD action buttons
+        if (btnSkipToFinale) {
+            btnSkipToFinale.addEventListener('click', (e) => {
+                e.stopPropagation();
+                cancelFinaleTransition();
+                setFinaleMode(true);
+            });
+        }
+
+        if (btnCancelTransition) {
+            btnCancelTransition.addEventListener('click', (e) => {
+                e.stopPropagation();
+                cancelFinaleTransition();
+                finaleTriggeredOnce = false;
+                setFinaleMode(false);
+                if (demoChaptersBar) demoChaptersBar.classList.remove('is-hidden');
+                nmapDemoVideo.currentTime = 0;
+                nmapDemoVideo.play().catch(() => {});
+            });
+        }
 
         // Shortcut button in #nmap section
         if (nmapGotoDemoBtn) {
@@ -1707,5 +1963,37 @@ Agradecemos su atención y quedamos a disposición para responder sus preguntas.
     document.querySelectorAll('.btn-tool-action, .btn-solid-blue, .btn-outline-subtle, .port-pill-btn, .wireshark-action-btn').forEach(btn => {
         btn.addEventListener('click', () => playKeystrokeSound(900, 0.035));
     });
+
+    // ==========================================
+    // CARDS SCROLL REVEAL & STAGGER ANIMATION
+    // ==========================================
+    function initCardAnimations() {
+        const cards = document.querySelectorAll('.tool-executive-card, .hero-author-card, .topo-endpoint');
+        if (!('IntersectionObserver' in window)) {
+            cards.forEach(c => c.classList.add('is-revealed'));
+            return;
+        }
+
+        cards.forEach((card, index) => {
+            card.classList.add('reveal-card');
+            const delay = (index % 3) * 0.1;
+            card.style.transitionDelay = `${delay}s`;
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        cards.forEach(card => observer.observe(card));
+    }
+    initCardAnimations();
 
 });
